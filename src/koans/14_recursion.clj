@@ -10,16 +10,19 @@
   (loop [n n
          acc true]
     (if (= n 0)
-      true
+      acc
       (recur (dec n) (not acc)))))
 
 (defn recursive-reverse [coll]
-  __)
+  (if (= 1 (count coll))
+    coll
+    (concat (recursive-reverse (rest coll)) (list (first coll)))))
 
 (defn factorial [n]
-  (if (= n 0)
-    1
-    ((* n (factorial (- n 1))))))
+  (loop [cnt n acc 1]
+    (if (zero? cnt)
+      acc
+      (recur (dec cnt) (* acc cnt)))))
 
 (meditations
   "Recursion ends with a base case"
@@ -36,6 +39,9 @@
 
   "Yet it becomes more difficult the more steps you take"
   (= '(6 5 4 3 2) (recursive-reverse [2 3 4 5 6]))
+
+  "Simple things may appear simple."
+  (= 1 (factorial 0))
 
   "Simple things may appear simple."
   (= 1 (factorial 1))
